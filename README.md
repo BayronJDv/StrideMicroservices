@@ -52,7 +52,7 @@ Este README cumple con los requisitos del enunciado: describe patrones de diseñ
 
 ## Diagrama de arquitectura
 
-<img width="1576" height="990" alt="timelineeditable" src="https://github.com/user-attachments/assets/20904dbd-2ac5-4b62-8747-47595b350b91" />
+<img width="1576" height="990" alt="timelineeditable(1)" src="https://github.com/user-attachments/assets/70f80a23-01e1-46cb-a01c-328e66dacf20" />
 
 
 ## Responsabilidades por microservicio (resumen)
