@@ -41,14 +41,20 @@ Este README cumple con los requisitos del enunciado: describe patrones de diseñ
 - Todos los microservicios se comunican mediante llamadas HTTP REST (el API Gateway usa `httpx`/peticiones síncronas a otros servicios).
 - No hay message broker en el repositorio; la coordinación se hace por peticiones directas y manejo de compensaciones en el código.
 
-## Tecnologías y herramientas
+## Tecnologías utilizadas
 
-- Backend: Python (Flask para microservicios), FastAPI (API Gateway), Node.js/Express (Payment Service)
-- Frontend: React + Vite
-- Base de datos / Auth: Supabase (Postgres + Auth)
-- Contenerización: Docker, `docker-compose.yml` en la raíz
-- Emails: `nodemailer` en `paymentService` (usa `EMAIL_USER` y `EMAIL_PASSWORD` del `.env`)
-- Observabilidad ligera: `uptime-kuma` (uptime), `dozzle` (logs).
+| Tecnología | Dónde se usa | Por qué / Justificación |
+| :--- | :--- | :--- |
+| **FastAPI** (Python) | **API Gateway** (`Apigateway`) | Alto rendimiento para el punto de entrada, validación de tokens y orquestación de flujos complejos. |
+| **Flask** (Python) | **Microservicios** (`Product`, `Cart`, `Order`) | Framework ligero ideal para construir la lógica de negocio específica de cada servicio. |
+| **Node.js / Express** | **Payment Service** (`paymentService`) | Demuestra la capacidad de la arquitectura para integrar tecnologías heterogéneas (políglota). |
+| **Supabase** | **Global** (DB & Auth) | Proveedor BaaS que gestiona la base de datos (PostgreSQL) y la autenticación (JWT). |
+| **React + Vite** | **Frontend** (`stride-front`) | Construcción de la interfaz de usuario moderna y optimizada. |
+| **Docker & Compose** | **Infraestructura** | Contenerización para garantizar entornos consistentes y despliegue unificado. |
+| **Nodemailer** | **Payment Service** | Librería para el envío de correos electrónicos (recibos) tras la compra. |
+| **httpx** | **API Gateway** | Cliente HTTP para realizar las peticiones síncronas entre el Gateway y los servicios. |
+| **Uptime Kuma** | **Monitoreo** | Herramienta para verificar el estado de salud (health checks) de los endpoints. |
+| **Dozzle** | **Logs** | Visualización de logs de los contenedores Docker en tiempo real. |
 
 ## Diagrama de arquitectura
 
