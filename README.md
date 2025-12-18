@@ -108,6 +108,8 @@ Cada servicio carga variables desde su `.env`. Variables mínimas necesarias:
 
 ## Ejecutar localmente (Docker, recomendado)
 
+antes de ejecutar verificar que todos los envs esten en su carpeta 
+
 1. Construir y levantar todos los servicios con Docker Compose (desde la raíz del repo):
 
 ```bash
