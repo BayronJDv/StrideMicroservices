@@ -74,11 +74,7 @@ Este README cumple con los requisitos del enunciado: describe patrones de diseñ
 
 ## Pruebas y estrategia de testing
 
-- Estado actual: hay tests de frontend (`stride-front/src/test`) con Jest. No se incluyen pruebas automatizadas para los microservicios en este repositorio.
-- Recomendaciones para pruebas del backend:
-  - Unit tests: `pytest` con `pytest-flask` para puntos lógicos de cada servicio.
-  - Integration tests: pruebas end-to-end con servicios levantados (usar `docker-compose` en un entorno CI) o `pytest` con `requests` apuntando a contenedores.
-  - E2E: Cypress o Playwright sobre la app React.
+- aun no hay pruebas se encarga alejandro de esta parte 
 
 ## Observabilidad y monitoreo
 
