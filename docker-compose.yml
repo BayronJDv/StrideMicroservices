@@ -1,0 +1,166 @@
+services:
+  # API Gateway - FastAPI
+  gateway:
+    build:
+      context: ./Apigateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Apigateway:/app
+      - /app/__pycache__
+    env_file:
+      - ./Apigateway/.env
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Product Microservice - Flask
+  product:
+    build:
+      context: ./ProductMsvc
+      dockerfile: Dockerfile
+    container_name: product-msvc
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./ProductMsvc:/app
+      - /app/__pycache__
+    env_file:
+      - ./ProductMsvc/.env
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Product Microservice - Flask
+  cart:
+    build:
+      context: ./cartService
+      dockerfile: Dockerfile
+    container_name: cart-msvc
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./cartService:/app
+      - /app/__pycache__
+    env_file:
+      - ./cartService/.env
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5001/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Product Microservice - Flask
+  order:
+    build:
+      context: ./OrderService
+      dockerfile: Dockerfile
+    container_name: order-msvc
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./OrderService:/app
+      - /app/__pycache__
+    env_file:
+      - ./OrderService/.env
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5002/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Payment Service - Express
+  payment:
+    build:
+      context: ./paymentService
+      dockerfile: Dockerfile
+    container_name: payment-msvc
+    ports:
+      - "5003:5003"
+    volumes:
+      - ./paymentService:/app
+      - /app/node_modules
+    env_file:
+      - ./paymentService/.env
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5003/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend - Vite + React
+  frontend:
+    build:
+      context: ./stride-front
+      dockerfile: Dockerfile
+    container_name: stride-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./stride-front:/app
+      - /app/node_modules
+    env_file:
+      - ./stride-front/.env
+    networks:
+      - app-network
+    depends_on:
+      - gateway
+      - product
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+  # Uptime Kuma - Monitoreo de servicios
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    volumes:
+      - uptime-kuma-data:/app/data
+    ports:
+      - "3001:3001"  # Puerto para acceder al panel
+    networks:
+      - app-network
+    restart: unless-stopped
+    
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8888:8080"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  uptime-kuma-data:
+
+networks:
+  app-network:
+    driver: bridge
