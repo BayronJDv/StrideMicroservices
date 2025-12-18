@@ -20,9 +20,14 @@ Este README cumple con los requisitos del enunciado: describe patrones de diseñ
 
 ## Patrones de diseño y justificación
 
-- **Saga Pattern (REQUIRED)**
+- **Saga Pattern**
   - Implementación: la secuencia de checkout/pago usa un patrón saga con pasos y acciones de compensación implementadas manualmente. El flujo principal (controlado desde el API Gateway / route de `payment/process-payment`) hace: consultar orden pendiente -> reducir stock -> procesar pago -> crear recibo -> marcar orden como `paid`. Si un paso falla, el flujo ejecuta compensaciones (ej. restaurar stock, eliminar recibo) para dejar el sistema en un estado consistente.
   - Justificación: garantiza consistencia eventual sin transacciones distribuidas (ACID) entre microservicios independientes. Las compensaciones dan seguridad frente a fallos parciales de la cadena.
+
+### diagrama del saga pattern
+
+<img width="1408" height="768" alt="Gemini_Generated_Image_tc5alftc5alftc5a" src="https://github.com/user-attachments/assets/48ae79d8-f1be-4ce4-b8a5-7fe74a234acd" />
+
 
 - **API Gateway**
   - Actúa como punto de entrada centralizado y controlador de autenticación (Supabase). Facilita separación de responsabilidades y simplifica gestión de rutas protegidas.
