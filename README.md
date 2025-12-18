@@ -47,7 +47,8 @@ Este README cumple con los requisitos del enunciado: describe patrones de diseñ
 
 ## Diagrama de arquitectura
 
-Incluir aquí un diagrama que muestre: el `Frontend` -> `API Gateway` -> (Product, Cart, Order, Payment). Mostrar flujos del checkout (obtener carrito, crear orden, reducir stock, procesar pago, crear recibo). [PLACEHOLDER: añadir diagrama de arquitectura y diagrama de Saga/compensación].
+<img width="1576" height="990" alt="timelineeditable" src="https://github.com/user-attachments/assets/20904dbd-2ac5-4b62-8747-47595b350b91" />
+
 
 ## Responsabilidades por microservicio (resumen)
 
