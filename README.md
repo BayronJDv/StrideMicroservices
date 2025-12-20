@@ -85,7 +85,7 @@ Este README cumple con los requisitos del enunciado: describe patrones de diseñ
 
 ## Pruebas y estrategia de testing
 
-- aun no hay pruebas se encarga alejandro de esta parte 
+Se implementan pruebas de integración que simulan el proceso de compra validando la comunicación en tiempo real entre los microservicios a través del API Gateway, con los servicios activos y utilizando endpoints reales. El objetivo es verificar la correcta integración y consistencia del flujo completo sin enfocarse en pruebas End-to-End de interfaz.
 
 ## Observabilidad y monitoreo
 
